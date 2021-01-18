@@ -30,10 +30,12 @@ const transform = (doc, ret) => {
 };
 
 messageSchema.set("toObject", {
+  versionKey: false,
   transform,
 });
 
 messageSchema.set("toJSON", {
+  versionKey: false,
   transform,
 });
 
