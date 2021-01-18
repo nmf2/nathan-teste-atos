@@ -1,0 +1,185 @@
+openapi: "3.0.2"
+info:
+  title: Vila Bia API
+  version: "1.0"
+servers:
+  - url: http://localhost:3000/
+paths:
+  /bots:
+    get:
+      tags:
+        - Bots
+      description: Lists all bots
+      responses:
+        "200":
+          description: A list of all bots with their ids
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - $ref: "#/components/schemas/Bot"
+                    - $ref: "#/components/schemas/Id"
+    post:
+      tags:
+        - Bots
+      description: Creates a bot
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Bot"
+      responses:
+        "200":
+          description: An object with the id of the created bot
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Id"
+
+  /bots/{id}:
+    get:
+      tags:
+        - Bots
+      description: Lists one bot
+      parameters:
+        - name: id
+          in: path
+          description: Bot id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: An object representing the bot
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/Bot"
+                  - $ref: "#/components/schemas/Id"
+    put:
+      tags:
+        - Bots
+      parameters:
+        - name: id
+          in: path
+          description: Bot id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      description: Updates a bot
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Bot"
+      responses:
+        "200":
+          description: Updated sucessfully
+
+  /messages:
+    get:
+      tags:
+        - Messages
+      description: Lists all messages
+      parameters:
+        - name: conversationId
+          in: query
+          description: A conversation id to filter messages by
+          required: false
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: A list of all messages with their ids
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - $ref: "#/components/schemas/Message"
+                    - $ref: "#/components/schemas/Id"
+    post:
+      tags:
+        - Messages
+      description: Creates a message
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Message"
+      responses:
+        "200":
+          description: An object with the id of the created message
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Id"
+
+  /messages/{id}:
+    get:
+      tags:
+        - Messages
+      description: Lists one message
+      parameters:
+        - name: id
+          in: path
+          description: Message id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: An object representing the message
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/Message"
+                  - $ref: "#/components/schemas/Id"
+components:
+  schemas:
+    Message:
+      type: object
+      properties:
+        conversationId:
+          type: string
+          format: uuid
+        timestamp:
+          type: string
+          format: date-time
+        from:
+          type: string
+          format: uuid
+        to:
+          type: string
+          format: uuid
+        text:
+          type: string
+      required:
+        - conversationId
+        - from
+        - to
+        - text
+    Bot:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+        - name
+    Id:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+      required:
+        - id

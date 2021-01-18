@@ -1,4 +1,4 @@
-import Bot from "../models/bot.model";
+import Bot from "../../models/bot.model";
 
 class Controller {
   /**
