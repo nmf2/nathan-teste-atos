@@ -6,8 +6,14 @@ class Controller {
    * @param {import("express").Request} req
    * @param {import("express").Response} res
    */
-  list(req, res) {
-    res.status(200).send("What a beautiful world.");
+  async list(req, res) {
+    try {
+      const bots = await Bot.find().select('name id -_id').exec()
+      res.status(200).send(bots);
+    } catch (err) {
+      console.log(err);
+      res.sendStatus(500);
+    }
   }
 
   /**
