@@ -8,10 +8,10 @@ const messageSchema = new mongoose.Schema({
   },
   conversationId: {
     type: String,
-    default: uuid.v4
   },
   timestamp: {
-    type: Date
+    type: Date,
+    default: Date
   },
   from: {
     type: String
