@@ -24,10 +24,12 @@ app.use(
 const apiSpec = path.join(__dirname, "./api.yaml");
 const swaggerDocument = YAML.load(apiSpec);
 
+// Allows to open the API spec and test page at /api-explorer
 app.use(express.static(`public`))
 fs.writeFileSync(apiSpec, JSON.stringify(swaggerDocument))
 app.use(process.env.OPENAPI_SPEC || '/spec', express.static(apiSpec))
 
+// Validates that the incoming requests have *only* have the optional or required parameters.
 app.use(
   ValidatorOpenApi({
     apiSpec,
@@ -40,7 +42,6 @@ app.use(
     });
   }
 );
-// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, {  }));
 
 routes(app);
 
