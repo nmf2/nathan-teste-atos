@@ -17,10 +17,7 @@ module.exports = merge(common, {
     })
   ],
   plugins: [
-    new NodemonPlugin({
-      watch: ['dist/server.js', 'src/api.yaml'],
-      ext: 'js,json,yaml'
-    }),
+    new NodemonPlugin(),
     new webpack.BannerPlugin({
       banner: 'require("source-map-support").install();',
       raw: true,
