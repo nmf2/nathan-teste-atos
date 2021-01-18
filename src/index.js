@@ -22,7 +22,6 @@ app.use(
 );
 
 const apiSpec = path.join(__dirname, "./api.yaml");
-console.log(`Spec`)
 const swaggerDocument = YAML.load(apiSpec);
 
 app.use(express.static(`public`))
@@ -51,6 +50,7 @@ databaseConnected
       console.log(`Server up and runnig on port ${port}`);
     });
   })
-  .catch(() => {
+  .catch((err) => {
+    console.error(err)
     console.log(`Check DB connection and restart server... `);
   });
