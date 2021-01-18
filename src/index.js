@@ -7,8 +7,6 @@ import * as bodyParser from "body-parser";
 const app = express();
 const port = process.env.PORT || 3000;
 
-routes(app);
-
 const databaseConnected = setupDatabase();
 
 app.use(bodyParser.json({ limit: process.env.REQUEST_LIMIT || "800kb" }));
@@ -19,16 +17,7 @@ app.use(
   })
 );
 
-// app.use(Express.static(`${root}/public`));
-
-// const apiSpec = path.join(__dirname, "api.yaml");
-// app.use(process.env.OPENAPI_SPEC || '/spec', Express.static(apiSpec))
-
-// app.use(
-//   ValidatorOpenApi({
-//     apiSpec,
-//   })
-// );
+routes(app);
 
 databaseConnected
   .then(() => {
