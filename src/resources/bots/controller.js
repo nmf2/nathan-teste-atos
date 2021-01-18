@@ -41,8 +41,12 @@ class Controller {
   async listOne(req, res) {
     try {
       const id = req.params.id;
-      const bots = await Bot.findById(id).select("name").exec();
-      res.status(200).send(bots);
+      const bot = await Bot.findById(id).select("name").exec();
+      if (bot !== null)  {
+        res.status(200).send(bot);
+      } else {
+        res.sendStatus(404);
+      }
     } catch (err) {
       console.log(err);
       res.sendStatus(500);
@@ -58,8 +62,12 @@ class Controller {
     const { name } = req.body;
     const _id = req.params.id;
     try {
-      await Bot.updateOne({ _id }, { name }).exec();
-      res.status(200).send();
+      const result = await Bot.updateOne({ _id }, { name }).exec();
+      if (result.nModified !== 0) {
+        res.status(200).send("Updated");
+      } else {
+        res.sendStatus(404);
+      }
     } catch (err) {
       console.log(err);
       res.sendStatus(500);
@@ -75,8 +83,12 @@ class Controller {
     const { name } = req.body;
     const _id = req.params.id;
     try {
-      await Bot.deleteOne({ _id }, { name }).exec();
-      res.status(200).send();
+      const result = await Bot.deleteOne({ _id }, { name }).exec();
+      if (result.nModified !== 0) {
+        res.status(200).send("Updated");
+      } else {
+        res.sendStatus(404);
+      }
     } catch (err) {
       console.log(err);
       res.sendStatus(500);

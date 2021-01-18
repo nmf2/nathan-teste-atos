@@ -26,7 +26,11 @@ class Controller {
     try {
       const id = req.params.id;
       const message = await Message.findById(id).exec();
-      res.status(200).send(message);
+      if (message !== null)  {
+        res.status(200).send(message);
+      } else {
+        res.sendStatus(404);
+      }
     } catch (err) {
       console.log(err);
       res.sendStatus(500);
