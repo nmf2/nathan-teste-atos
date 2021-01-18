@@ -84,7 +84,7 @@ class Controller {
     const _id = req.params.id;
     try {
       const result = await Bot.deleteOne({ _id }, { name }).exec();
-      if (result.nModified !== 0) {
+      if (result.deletedCount !== 0) {
         res.status(200).send("Deleted");
       } else {
         res.sendStatus(404);
