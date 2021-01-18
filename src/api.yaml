@@ -158,6 +158,8 @@ paths:
             type: string
             format: uuid
       responses:
+        "404":
+          description: The requested message wasn't found
         "200":
           description: An object representing the message
           content:
