@@ -48,6 +48,23 @@ class Controller {
       res.sendStatus(500);
     }
   }
+
+  /**
+   *
+   * @param {import("express").Request} req
+   * @param {import("express").Response} res
+   */
+  async update(req, res) {
+    const { name } = req.body;
+    const _id = req.params.id;
+    try {
+      await Bot.updateOne({ _id }, { name }).exec();
+      res.status(200).send();
+    } catch (err) {
+      console.log(err);
+      res.sendStatus(500);
+    }
+  }
 }
 
 export default new Controller();
