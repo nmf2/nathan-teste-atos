@@ -80,6 +80,22 @@ paths:
       responses:
         "200":
           description: Updated sucessfully
+    
+    delete:
+      tags:
+        - Bots
+      parameters:
+        - name: id
+          in: path
+          description: Bot id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      description: Deletes a bot
+      responses:
+        "200":
+          description: Deleted sucessfully
 
   /messages:
     get:
