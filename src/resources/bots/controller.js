@@ -8,7 +8,7 @@ class Controller {
    */
   async list(req, res) {
     try {
-      const bots = await Bot.find().select('name id -_id').exec()
+      const bots = await Bot.find().select("name").exec();
       res.status(200).send(bots);
     } catch (err) {
       console.log(err);
