@@ -32,6 +32,22 @@ class Controller {
       res.sendStatus(500);
     }
   }
+
+  /**
+   *
+   * @param {import("express").Request} req
+   * @param {import("express").Response} res
+   */
+  async listOne(req, res) {
+    try {
+      const id = req.params.id;
+      const bots = await Bot.findById(id).select("name").exec();
+      res.status(200).send(bots);
+    } catch (err) {
+      console.log(err);
+      res.sendStatus(500);
+    }
+  }
 }
 
 export default new Controller();
